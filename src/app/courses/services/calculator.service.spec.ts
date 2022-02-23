@@ -15,7 +15,7 @@ describe('CalculatorService', () => {
         {provide: LoggerService, useValue: loggerSpy}
       ]
     });
-    calculator = TestBed.get(CalculatorService);
+    calculator = TestBed.inject(CalculatorService);
   });
 
   it('should add two numbers', () => {
