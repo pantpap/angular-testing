@@ -12,23 +12,27 @@ import {setupCourses} from '../common/setup-test-data';
 
 
 describe('CoursesCardListComponent', () => {
+beforeEach(() => {
+  TestBed.configureTestingModule({
+    imports: [CoursesModule]
+  });
+});
 
-
-  it("should create the component", () => {
+  it('should create the component', () => {
 
    pending();
 
   });
 
 
-  it("should display the course list", () => {
+  it('should display the course list', () => {
 
     pending();
 
   });
 
 
-  it("should display the first course", () => {
+  it('should display the first course', () => {
 
       pending();
 
