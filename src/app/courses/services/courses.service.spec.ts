@@ -73,6 +73,7 @@ describe('CoursesService', () => {
           expect(error.status).toBe(500);
         }
       );
+
     const req = httpTestController.expectOne('/api/courses/12');
     expect(req.request.method).toEqual('PUT');
 
@@ -84,7 +85,9 @@ describe('CoursesService', () => {
       expect(lesson).toBeTruthy();
       expect(lesson.length).toBe(3);
     });
+
     const req = httpTestController.expectOne(request => request.url === '/api/lessons');
+
     expect(req.request.method).toEqual('GET');
     expect(req.request.params.get('courseId')).toEqual('12');
     expect(req.request.params.get('filter')).toEqual('');
