@@ -78,6 +78,16 @@ describe('CoursesService', () => {
     req.flush('Save course failed', {status: 500, statusText: 'Internal Server Error'});
   });
 
+  it('should find a list of lessons', () => {
+    coursesService.findLessons(12).subscribe(lesson => {
+      // expect(lesson).toBeTruthy();
+
+
+    });
+    const req = httpTestController.expectOne('/api/lessons');
+    expect(req.request.method).toEqual('GET');
+  });
+
   afterEach(() => {
     httpTestController.verify();
   });
