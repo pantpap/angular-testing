@@ -80,11 +80,11 @@ describe('CoursesService', () => {
 
   it('should find a list of lessons', () => {
     coursesService.findLessons(12).subscribe(lesson => {
-      // expect(lesson).toBeTruthy();
+      expect(lesson).toBeTruthy();
 
 
     });
-    const req = httpTestController.expectOne('/api/lessons');
+    const req = httpTestController.expectOne(request => request.url === '/api/lessons');
     expect(req.request.method).toEqual('GET');
   });
 
