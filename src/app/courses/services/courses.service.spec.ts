@@ -24,6 +24,9 @@ describe('CoursesService', () => {
     coursesService.findAllCourses().subscribe(courses => {
       expect(courses).toBeTruthy('No courses Found');
       expect(courses.length).toBe(12, 'Incorrect number of courses' );
+
+      const course = courses.find(item => item.id === 12);
+      expect(course.titles.description).toBe('Angular Testing Course');
     });
     const req = httpTestController.expectOne('/api/courses');
     expect(req.request.method).toEqual('GET');
