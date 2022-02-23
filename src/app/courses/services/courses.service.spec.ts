@@ -3,6 +3,8 @@ import {TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {COURSES} from '../../../../server/db-data';
 import {Course} from '../model/course';
+import {errorObject} from 'rxjs/internal-compatibility';
+import {HttpErrorResponse} from '@angular/common/http';
 
 describe('CoursesService', () => {
 
@@ -47,7 +49,7 @@ describe('CoursesService', () => {
 
   });
 
-  it('should save tha course', () => {
+  it('should save the course', () => {
     const changes: Partial<Course> = {titles: {description: 'Testing Angular'}};
     coursesService.saveCourse(12, changes).subscribe(course => {
       expect(course.id).toBe(12);
@@ -61,6 +63,19 @@ describe('CoursesService', () => {
       ...COURSES[12],
       ...changes
     });
+  });
+
+  it('should give error if save fails', () => {
+    const changes: Partial<Course> = {titles: {description: 'Testing Angular'}};
+    coursesService.saveCourse(12, changes).subscribe(() => fail('save failed'),
+        (error: HttpErrorResponse) => {
+          expect(error.status).toBe(500);
+        }
+      );
+    const req = httpTestController.expectOne('/api/courses/12');
+    expect(req.request.method).toEqual('PUT');
+
+    req.flush('Save course failed', {status: 500, statusText: 'Internal Server Error'});
   });
 
   afterEach(() => {
