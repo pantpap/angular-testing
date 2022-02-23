@@ -43,5 +43,6 @@ describe('CoursesService', () => {
     const req = httpTestController.expectOne('/api/courses/12');
     expect(req.request.method).toEqual('GET');
     req.flush(COURSES[12]);
+    httpTestController.verify();
   });
 });
