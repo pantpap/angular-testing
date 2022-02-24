@@ -46,9 +46,13 @@ beforeEach(waitForAsync(() => {
     fixture.detectChanges();
 
     const course = component.courses[0];
-    const card = element.query(By.css('.course-card:first-child'));
+    const card = element.query(By.css('.course-card:first-child')),
+                title = card.query(By.css('mat-card-title')),
+                image = card.query(By.css('img'));
 
     expect(card).toBeTruthy('could not find course card');
+    expect(title.nativeElement.textContent).toBe(course.titles.description);
+    expect(image.nativeElement.src).toBe(course.iconUrl);
   });
 });
 
