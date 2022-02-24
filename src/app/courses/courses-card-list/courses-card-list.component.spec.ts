@@ -32,7 +32,6 @@ beforeEach(waitForAsync(() => {
     console.log(component);
   });
 
-
   it('should display the course list', () => {
     component.courses = setupCourses();
     fixture.detectChanges();
@@ -42,14 +41,15 @@ beforeEach(waitForAsync(() => {
     expect(cards.length).toBe(12, 'Wrong number of courses');
   });
 
-
   it('should display the first course', () => {
+    component.courses = setupCourses();
+    fixture.detectChanges();
 
-      pending();
+    const course = component.courses[0];
+    const card = element.query(By.css('.course-card:first-child'));
 
+    expect(card).toBeTruthy('could not find course card');
   });
-
-
 });
 
 
