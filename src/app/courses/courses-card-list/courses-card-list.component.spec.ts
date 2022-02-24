@@ -15,6 +15,7 @@ describe('CoursesCardListComponent', () => {
 
   let component: CoursesCardListComponent;
   let fixture: ComponentFixture<CoursesCardListComponent>;
+  let element: DebugElement;
 
 beforeEach(waitForAsync(() => {
   TestBed.configureTestingModule({
@@ -22,20 +23,22 @@ beforeEach(waitForAsync(() => {
   }).compileComponents().then(() => {
     fixture = TestBed.createComponent(CoursesCardListComponent);
     component = fixture.componentInstance;
+    element = fixture.debugElement;
   });
 }));
 
   it('should create the component', () => {
     expect(component).toBeTruthy();
     console.log(component);
-
   });
 
 
   it('should display the course list', () => {
+    component.courses = setupCourses();
+    const cards = element.queryAll(By.css('.course-card'));
 
-    pending();
-
+    expect(cards).toBeTruthy();
+    expect(cards.length).toBe(12, 'Wrong number of courses');
   });
 
 
