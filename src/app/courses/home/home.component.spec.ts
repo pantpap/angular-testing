@@ -18,6 +18,8 @@ describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
   let component: HomeComponent;
   let el: DebugElement;
+  let coursesService: any;
+  const beginnersCourses = setupCourses().filter(course => course.category == 'BEGINNER');
 
   beforeEach(waitForAsync (() => {
     const coursesServiceSpy = jasmine.createSpyObj('CoursesService', ['findAllCourses']);
@@ -30,20 +32,21 @@ describe('HomeComponent', () => {
       fixture = TestBed.createComponent(HomeComponent);
       component = fixture.componentInstance;
       el = fixture.debugElement;
+      coursesService = TestBed.inject(CoursesService);
     });
   }));
 
   it('should create the component', () => {
-
     expect(component).toBeTruthy();
-
   });
 
 
   it('should display only beginner courses', () => {
+    coursesService.findAllCourses.and.returnValue(of(beginnersCourses));
 
-    pending();
-
+    fixture.detectChanges();
+    const tabs = el.queryAll(By.css('.mat-tab-label'));
+    expect(tabs.length).toBe(1, 'Wrong number of tabs');
   });
 
 
