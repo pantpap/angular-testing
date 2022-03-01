@@ -41,7 +41,6 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
   it('should display only beginner courses', () => {
     coursesService.findAllCourses.and.returnValue(of(beginnersCourses));
 
@@ -49,7 +48,6 @@ describe('HomeComponent', () => {
     const tabs = el.queryAll(By.css('.mat-tab-label'));
     expect(tabs.length).toBe(1, 'Wrong number of tabs');
   });
-
 
   it('should display only advanced courses', () => {
     coursesService.findAllCourses.and.returnValue(of(advanceCourses));
