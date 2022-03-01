@@ -63,19 +63,23 @@ describe('HomeComponent', () => {
 
     fixture.detectChanges();
     const tabs = el.queryAll(By.css('.mat-tab-label'));
-    expect(tabs.length).toBe(2, 'Wrong number of tabs');
+    expect(tabs.length).toBe(2, 'Must find 2 tabs');
   });
 
 
-  it('should display advanced courses when tab clicked', () => {
-    coursesService.findAllCoursesa.and.returnValue(of(setupCourses()));
+  it('should display advanced courses when tab clicked', (done: DoneFn) => {
+    coursesService.findAllCourses.and.returnValue(of(setupCourses()));
     fixture.detectChanges();
     const tabs = el.queryAll(By.css('.mat-tab-label'));
-    el.nativeElement.click(tabs[1]);
-    const cardTitles = el.queryAll(By.css('.mat-card-title'));
+    click(tabs[1]);
+    fixture.detectChanges();
+    setTimeout(() => {
+      const cardTitles = el.queryAll(By.css('.mat-tab-body-active .mat-card-title'));
 
-    expect(cardTitles.length).toBeGreaterThan(0, 'Card titles must be exist');
-    expect(cardTitles[0].nativeElement.textContent).toContain('Angular Security Course');
+      expect(cardTitles.length).toBeGreaterThan(0, 'Card titles must be exist');
+      expect(cardTitles[0].nativeElement.textContent).toContain('Angular Security Course');
+      done();
+    }, 500);
   });
 
 });
