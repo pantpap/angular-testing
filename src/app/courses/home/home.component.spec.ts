@@ -1,4 +1,4 @@
-import {ComponentFixture, fakeAsync, flush, flushMicrotasks, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, flush, flushMicrotasks, TestBed, tick, waitForAsync} from '@angular/core/testing';
 import {CoursesModule} from '../courses.module';
 import {DebugElement} from '@angular/core';
 
@@ -57,7 +57,6 @@ describe('HomeComponent', () => {
     expect(tabs.length).toBe(1, 'Wrong number of tabs');
   });
 
-
   it('should display both tabs', () => {
     coursesService.findAllCourses.and.returnValue(of(setupCourses()));
 
@@ -66,8 +65,7 @@ describe('HomeComponent', () => {
     expect(tabs.length).toBe(2, 'Must find 2 tabs');
   });
 
-
-  it('should display advanced courses when tab clicked', (done: DoneFn) => {
+  it('should display advanced courses when tab clicked', fakeAsync(() => {
     coursesService.findAllCourses.and.returnValue(of(setupCourses()));
     fixture.detectChanges();
     const tabs = el.queryAll(By.css('.mat-tab-label'));
@@ -78,10 +76,10 @@ describe('HomeComponent', () => {
 
       expect(cardTitles.length).toBeGreaterThan(0, 'Card titles must be exist');
       expect(cardTitles[0].nativeElement.textContent).toContain('Angular Security Course');
-      done();
     }, 500);
-  });
 
+    tick(500);
+  }));
 });
 
 
