@@ -78,7 +78,7 @@ describe('HomeComponent', () => {
       expect(cardTitles[0].nativeElement.textContent).toContain('Angular Security Course');
     }, 500);
 
-    tick(500);
+    flush();
   }));
 });
 
