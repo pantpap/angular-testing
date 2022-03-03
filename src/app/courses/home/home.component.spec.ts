@@ -71,15 +71,9 @@ describe('HomeComponent', () => {
     const tabs = el.queryAll(By.css('.mat-tab-label'));
     click(tabs[1]);
     fixture.detectChanges();
-    let cardTitles;
-    setTimeout(() => {
-      cardTitles = el.queryAll(By.css('.mat-tab-body-active .mat-card-title'));
-
-      // expect(cardTitles.length).toBeGreaterThan(0, 'Card titles must be exist');
-      // expect(cardTitles[0].nativeElement.textContent).toContain('Angular Security Course');
-    }, 500);
-
     flush();
+
+    const cardTitles = el.queryAll(By.css('.mat-tab-body-active .mat-card-title'));
     expect(cardTitles.length).toBeGreaterThan(0, 'Card titles must be exist');
     expect(cardTitles[0].nativeElement.textContent).toContain('Angular Security Course');
   }));
